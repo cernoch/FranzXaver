@@ -17,34 +17,9 @@
 package afester.javafx.svg;
 
 import javafx.scene.Group;
-
-import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
-import org.apache.batik.anim.dom.SVGOMCircleElement;
-import org.apache.batik.anim.dom.SVGOMDefsElement;
-import org.apache.batik.anim.dom.SVGOMDocument;
-import org.apache.batik.anim.dom.SVGOMElement;
-import org.apache.batik.anim.dom.SVGOMEllipseElement;
-import org.apache.batik.anim.dom.SVGOMGElement;
-import org.apache.batik.anim.dom.SVGOMLineElement;
-import org.apache.batik.anim.dom.SVGOMLinearGradientElement;
-import org.apache.batik.anim.dom.SVGOMMetadataElement;
-import org.apache.batik.anim.dom.SVGOMPathElement;
-import org.apache.batik.anim.dom.SVGOMPatternElement;
-import org.apache.batik.anim.dom.SVGOMPolygonElement;
-import org.apache.batik.anim.dom.SVGOMPolylineElement;
-import org.apache.batik.anim.dom.SVGOMRadialGradientElement;
-import org.apache.batik.anim.dom.SVGOMRectElement;
-import org.apache.batik.anim.dom.SVGOMSVGElement;
-import org.apache.batik.anim.dom.SVGOMTSpanElement;
-import org.apache.batik.anim.dom.SVGOMTextElement;
-import org.apache.batik.bridge.BridgeContext;
-import org.apache.batik.bridge.DocumentLoader;
-import org.apache.batik.bridge.GVTBuilder;
-import org.apache.batik.bridge.UserAgent;
-import org.apache.batik.bridge.UserAgentAdapter;
+import org.apache.batik.anim.dom.*;
+import org.apache.batik.bridge.*;
 import org.apache.batik.util.XMLResourceDescriptor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.w3c.dom.NodeList;
 
 import java.io.FileInputStream;
@@ -53,10 +28,12 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 
 public class SvgLoader {
-    private static final Logger logger = LogManager.getLogger();
+
+    private static final Logger logger = Logger.getLogger(SvgLoader.class.getName());
 
     Group parentNode;
 
@@ -153,7 +130,7 @@ public class SvgLoader {
             if (consumer != null) {
                 consumer.accept((SVGOMElement) node);
             } else {
-                logger.warn("Unknown element {} ({}):", node.getLocalName(), node);
+                logger.warning("Unknown element " + node.getLocalName() + " (" + node + "):");
             }
         }
 

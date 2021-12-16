@@ -17,61 +17,30 @@
 package afester.javafx.svg;
 
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.CubicCurve;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Polyline;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.SVGPath;
-import javafx.scene.shape.Shape;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Affine;
-
-import org.apache.batik.anim.dom.SVGOMAnimatedPathData;
+import org.apache.batik.anim.dom.*;
 import org.apache.batik.anim.dom.SVGOMAnimatedPathData.BaseSVGPathSegList;
-import org.apache.batik.anim.dom.SVGOMCircleElement;
-import org.apache.batik.anim.dom.SVGOMDefsElement;
-import org.apache.batik.anim.dom.SVGOMEllipseElement;
-import org.apache.batik.anim.dom.SVGOMGElement;
-import org.apache.batik.anim.dom.SVGOMGradientElement;
-import org.apache.batik.anim.dom.SVGOMLineElement;
-import org.apache.batik.anim.dom.SVGOMLinearGradientElement;
-import org.apache.batik.anim.dom.SVGOMMetadataElement;
-import org.apache.batik.anim.dom.SVGOMPathElement;
-import org.apache.batik.anim.dom.SVGOMPatternElement;
-import org.apache.batik.anim.dom.SVGOMPolygonElement;
-import org.apache.batik.anim.dom.SVGOMPolylineElement;
-import org.apache.batik.anim.dom.SVGOMRadialGradientElement;
-import org.apache.batik.anim.dom.SVGOMRectElement;
-import org.apache.batik.anim.dom.SVGOMSVGElement;
-import org.apache.batik.anim.dom.SVGOMStopElement;
-import org.apache.batik.anim.dom.SVGOMTSpanElement;
-import org.apache.batik.anim.dom.SVGOMTextElement;
 import org.apache.batik.css.dom.CSSOMSVGColor;
 import org.apache.batik.css.dom.CSSOMValue;
 import org.apache.batik.dom.svg.SVGPathSegItem;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
-import org.w3c.dom.svg.SVGRect;
 import org.w3c.dom.svg.SVGPoint;
 import org.w3c.dom.svg.SVGPointList;
+import org.w3c.dom.svg.SVGRect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 
 public class SvgBasicElementHandler {
-    private static final Logger logger = LogManager.getLogger();
+
+    private static final Logger logger = Logger.getLogger(SvgBasicElementHandler.class.getName());
 
     public SvgStyleTools styleTools = null;
     private SvgLoader loader = null;
@@ -103,7 +72,7 @@ public class SvgBasicElementHandler {
 
     // <defs>
     void handleElement(SVGOMDefsElement element) {
-        logger.debug("Handling <defs>: {}", element);
+        logger.fine("Handling <defs>: " + element);
     }
 
 
@@ -123,7 +92,7 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMMetadataElement element) {
-        logger.debug("Handling <metadata>: {}", element);
+        logger.fine("Handling <metadata>: " + element);
     }
 
 
@@ -184,12 +153,12 @@ public class SvgBasicElementHandler {
 
 
     void handleElement(SVGOMTSpanElement element) {
-        logger.debug("Handling <tspan>: {}", element);
+        logger.fine("Handling <tspan>: " + element);
     }
 
 
     void handleElement(SVGOMPatternElement element) {
-        logger.debug("Handling <pattern>: {}", element);
+        logger.fine("Handling <pattern>: " + element);
     }
 
 
@@ -459,7 +428,7 @@ public class SvgBasicElementHandler {
             }
 
             if (fxObj != null) {
-                logger.debug(element);
+                logger.fine(Objects.toString(element));
                 styleTools.applyStyle(fxObj, element);
 
                 result.getChildren().add(fxObj);
@@ -515,7 +484,7 @@ public class SvgBasicElementHandler {
         float stopOpacity = stopOpacityValue.getFloatValue(CSSPrimitiveValue.CSS_NUMBER);
 
         Color stopColor = new Color(red, green, blue, stopOpacity);
-        logger.debug("stopColor={}", stopColor);
+        logger.fine("stopColor=" + stopColor);
 
         return new Stop(offset, stopColor);
     }

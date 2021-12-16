@@ -21,23 +21,22 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
-
 import org.apache.batik.anim.dom.SVGOMAnimatedTransformList;
 import org.apache.batik.anim.dom.SVGOMGradientElement;
 import org.apache.batik.anim.dom.SVGOMLinearGradientElement;
 import org.apache.batik.anim.dom.SVGOMRadialGradientElement;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Attr;
 import org.w3c.dom.svg.SVGMatrix;
 import org.w3c.dom.svg.SVGTransform;
 import org.w3c.dom.svg.SVGTransformList;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class GradientFactory {
-    private static final Logger logger = LogManager.getLogger();
+
+    private static final Logger logger = Logger.getLogger(GradientFactory.class.getName());
 
     private GradientPolicy gradientTransformPolicy = GradientPolicy.USE_SUPPORTED;
 
@@ -109,19 +108,19 @@ by just transforming start and end coordinates of the gradient.
         if (matrix != null) {
             switch (gradientTransformPolicy) {
               case DISCARD :
-                  logger.warn("Discarding gradientTransform");
+                  logger.warning("Discarding gradientTransform");
                   break;
 
               case USE_AS_IS :
               {
                   TransformationOperations to1 = TransformationOperations.getFromSvg(matrix);
                   if (to1.hasSkew() || to1.hasScale()) {
-                      logger.warn(
+                      logger.warning(
                               "GradientTransform includes scale or skew - "
                             + "this is not yet supported! Rendering might be inaccurate.");
-                      logger.debug(to1);
+                      logger.fine(to1.toString());
                   }
-                  final double newX1 = matrix.getA() * startX + matrix.getB() * startY 
+                  final double newX1 = matrix.getA() * startX + matrix.getB() * startY
                                        + matrix.getC();
                   final double newY1 = matrix.getD() * startX + matrix.getE() * startY 
                                        + matrix.getF();
@@ -139,10 +138,10 @@ by just transforming start and end coordinates of the gradient.
               default: {
                   TransformationOperations to1 = TransformationOperations.getFromSvg(matrix);
                   if (to1.hasSkew() || to1.hasScale()) {
-                      logger.warn("GradientTransform includes scale or skew - "
+                      logger.warning("GradientTransform includes scale or skew - "
                                 + "using rotation and translation part only! "
                                 + "Rendering might be inaccurate.");
-                      logger.debug(to1);
+                      logger.fine(to1.toString());
 
                       Point2D trans = to1.getTranslation();
                       double rot = to1.getRotation();
@@ -215,7 +214,7 @@ by just transforming start and end coordinates of the gradient.
 
         SVGMatrix matrix = getGradientTransform(element);
         if (matrix != null) {
-            logger.error("GradientTransform for RadialGradient not yet implemented!");
+            logger.severe("GradientTransform for RadialGradient not yet implemented!");
         }
 
         return new RadialGradient(focusAngle, focusDistance, centerX, centerY, radius, 

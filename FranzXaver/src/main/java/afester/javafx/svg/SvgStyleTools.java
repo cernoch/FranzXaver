@@ -22,29 +22,25 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Affine;
-
 import org.apache.batik.anim.dom.SVGOMSVGElement;
 import org.apache.batik.anim.dom.SVGStylableElement;
 import org.apache.batik.css.dom.CSSOMComputedStyle;
 import org.apache.batik.css.dom.CSSOMComputedStyle.ComputedCSSValue;
 import org.apache.batik.css.dom.CSSOMSVGComputedStyle;
 import org.apache.batik.css.dom.CSSOMSVGComputedStyle.ComputedCSSPaintValue;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSValue;
-import org.w3c.dom.svg.SVGMatrix;
-import org.w3c.dom.svg.SVGPaint;
-import org.w3c.dom.svg.SVGTransform;
-import org.w3c.dom.svg.SVGTransformList;
-import org.w3c.dom.svg.SVGTransformable;
+import org.w3c.dom.svg.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 public class SvgStyleTools {
-    private static final Logger logger = LogManager.getLogger();
+
+    private static final Logger logger = Logger.getLogger(SvgStyleTools.class.getName());
 
     protected SVGOMSVGElement svgElement = null;
     private Map<String, Paint> paints = new HashMap<>();
@@ -225,7 +221,7 @@ public class SvgStyleTools {
             }
         }
 
-        logger.debug("Font: {}/{}", fontFamily, fontSize);
+        logger.fine("Font: " + Objects.requireNonNull(fontFamily) + "/" + fontSize);
         Font font = Font.font(fontFamily, fontSize);
         fxObj.setFont(font);
 

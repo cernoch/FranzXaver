@@ -20,10 +20,8 @@ dependencies {
     compile 'org.apache.xmlgraphics:batik-anim:1.9'
     compile 'org.apache.xmlgraphics:batik-bridge:1.9'
     compile 'xalan:xalan:2.7.2'
-    compile 'org.apache.logging.log4j:log4j-api:2.5'
 
     runtime 'org.apache.xmlgraphics:xmlgraphics-commons:2.1'
-    runtime 'org.apache.logging.log4j:log4j-core:2.5'
 
     testCompile 'junit:junit:4.12'
 }
