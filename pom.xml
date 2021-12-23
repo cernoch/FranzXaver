@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
-  <version>0.2</version>
+  <version>0.3-SNAPSHOT</version>
   <description>The top level project which includes the FranzXaver library and the FranzXaver samples application.</description>
   <url>http://afester.github.io/FranzXaver/</url>
 
